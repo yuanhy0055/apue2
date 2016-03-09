@@ -1,0 +1,12 @@
+#!/bin/sh
+find . -not -name *.o -not -name *.a -not -name *.bin -exec grep --color -Hn "$@" {} \; 2>/dev/null
+
+#if [ "$#" -lt 7 ];then
+#	echo "Search All..."
+#	find . -exec grep --color -Hn "$@" {} \; 2>/dev/null
+#elif [ "$#" = 8 ];then
+#	EX="$1"
+#	echo "Find exclude {$EX} ..."
+#	shift
+#	find . -path "$EX" -prune -o -exec grep --color -Hn "$@" {} \; 2>/dev/null
+#fi

@@ -1,0 +1,35 @@
+#!/bin/bash
+
+function ChildReturned() {
+	#wait $1
+	#echo "$1 was returned($2). Status = $?"
+	echo "A Child returned. Status = $?"
+}
+
+set -bm
+all_pid=""
+trap ChildReturned SIGCHLD
+
+if [ $# != 1 ];then
+    echo "Usage: `basename $0` dir-name"
+	exit 1
+fi
+
+TDIR=`echo $1|sed 's/\///g'`
+FILES=`find ${TDIR} -maxdepth 1|grep -v "${TDIR}$"`
+
+[ -d /run/shm/${TDIR} ] || mkdir /run/shm/${TDIR}
+
+for ff in $FILES
+do
+	#echo -en "Cal $ff ... "
+	#du -sh $ff &
+	tar cfJ /run/shm/$ff.tar.xz $ff &
+	cpid=$!
+	echo "PID=$cpid started($ff)"
+	all_pid="$all_pid $cpid"
+	#trap 'ChildReturned $cpid $ff' SIGCHLD
+done
+
+echo "Waiting all_pid ..."
+wait $all_pid

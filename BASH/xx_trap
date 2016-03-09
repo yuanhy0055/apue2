@@ -1,0 +1,16 @@
+#!/bin/bash
+
+sigusr1_received=false
+
+catch_sigusr1 () { sigusr1_received=true ;}
+
+trap catch_sigusr1 USR1
+
+echo "My PID is $$"
+echo "Waiting for SIGUSR1 ..."
+
+while ! $sigusr1_received ; do sleep 1 ; done
+
+echo "SIGUSR1 received."
+
+exit 0
