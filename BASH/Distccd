@@ -1,0 +1,1 @@
+distccd --daemon --allow 2.2.2.0/24 --listen 2.2.2.2

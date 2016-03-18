@@ -1,0 +1,6 @@
+#!/bin/bash
+
+#cd initramfs
+find . | cpio -H newc -o > /tmp/initrf.cpio
+cd ..
+cat /tmp/initrf.cpio | gzip > /dev/shm/rd.dsn

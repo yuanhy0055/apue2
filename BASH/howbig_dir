@@ -1,0 +1,6 @@
+#!/bin/sh
+
+for ff in ./*
+do
+	[ -d ${ff} ] && du -sh $ff
+done

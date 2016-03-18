@@ -1,0 +1,12 @@
+#!/bin/sh
+
+TAR_DIR=/run/shm/com8
+
+[ -d ${TAR_DIR} ] || mkdir ${TAR_DIR}
+
+for ff in /run/shm/BF8/*.tar.bz2
+do
+#echo $ff
+#du -sh $ff
+tar xfj $ff -C ${TAR_DIR} &
+done

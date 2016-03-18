@@ -1,0 +1,4 @@
+#!/bin/bash
+
+#smbclient //xaserver/"技术交流" -U yyuan
+sudo mount -t cifs -o username=yyuan,password=yy0004,iocharset=utf8,uid=nico,gid=nico //xaserver/"技术交流" Tao5/
