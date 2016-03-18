@@ -1,0 +1,33 @@
+#!/bin/bash
+
+array=( \
+"94.228.41.169:8080" \
+"78.32.142.213:8080" \
+"195.62.223.78:8080" \
+"37.152.48.101:3128" \
+"176.126.247.241:3128" \
+"164.215.111.20:80" \
+"45.63.96.5:8080" \
+"88.214.207.89:3128" \
+"178.62.75.42:3128" \
+"81.141.36.46:8118" \
+)
+
+#DLX=${array[7]}
+#wget -S -O - http://source.android.com/source/51-android.rules |tee 5151
+
+if [ 0 = 0 ];then
+. env_OXY
+
+export https_proxy="${DLX}"
+export http_proxy="${DLX}"
+export ftp_proxy="${DLX}"
+git config --global --remove http
+git config --global --remove https
+git config --global http.proxy https://${DLX}
+git config --global https.proxy https://${DLX}
+fi
+
+
+env|grep http_proxy
+git clone https://github.com/TheMuppets/proprietary_vendor_samsung.git

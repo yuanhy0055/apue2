@@ -1,0 +1,19 @@
+#!/bin/bash
+
+PXY0="YY/ssldl_org.txt"
+URL0="http://www.sslproxies.org/"
+
+[ -s ${PXY0} ] || curl -s ${URL0} |sed -n '/<tbody>/,/<\/tbody>/p' |sed -e '1s/.*<tbody>//' -e '$s/<\/tbody>.*//'>${PXY0}
+
+if [ -s ${PXY0} ] ;then
+	cat ${PXY0} | head -1 >only_1
+	sed -i '1d' ${PXY0}
+	cat only_1 >> YY/save_item
+else
+	echo "No Orig File"
+	exit 0
+fi
+
+DLX="`cat only_1 | sed -e '1s/.*<tr>//' -e 's/<td>//g' -e 's/<\/td>/ /g' -e '$s/<\/tr>.*//'|awk '{ print $1 ":" $2}'`"
+rm only_1
+echo -e "\t\t->Using [$DLX] Proxy for HTTPs+Git"

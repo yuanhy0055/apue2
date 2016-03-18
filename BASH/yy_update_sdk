@@ -1,0 +1,30 @@
+#!/bin/bash
+
+PXY0="/run/shm/ssl0.txt"
+
+function gen_new_one()
+{
+[ -s ${PXY0} ] || curl -s ${URL0}|sed -n '/<tbody>/,/<\/tbody>/p'|sed -e '1s/.*<tbody>//' -e '$s/<\/tbody>.*//'>${PXY0}
+
+if [ -s ${PXY0} ] ;then
+	cat ${PXY0} | head -1 >only_one
+	sed -i '1d' ${PXY0}
+else
+	#url -s http://www.sslproxies.org/ |sed -n '/<tbody>/,/<\/tbody>/p' |sed -e '1s/.*<tbody>//' -e '$s/<\/tbody>.*//' >${PXY0}
+	echo "No Orig File"
+	exit 0
+fi
+}
+
+[ -s only_one ] || gen_new_one
+DIP="`cat only_one | sed -e '1s/.*<tr>//' -e 's/<td>//g' -e 's/<\/td>/ /g' -e '$s/<\/tr>.*//'|awk '{ print $1 }'`"
+DPT="`cat only_one | sed -e '1s/.*<tr>//' -e 's/<td>//g' -e 's/<\/td>/ /g' -e '$s/<\/tr>.*//'|awk '{ print $2 }'`"
+
+echo "	-> Using Proxy=$DIP:$DPT"
+
+#	--accept-license
+#./tools/android update sdk -u -t 1,2,4,31,33,141 \
+#../tools/android list sdk -u --all --extended \
+ ../tools/android update sdk -f -u -a -t build-tools-23.0.2 \
+    --proxy-host $DIP \
+    --proxy-port $DPT
