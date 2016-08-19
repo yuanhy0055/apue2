@@ -1,0 +1,139 @@
+diff -crpN CCPP0/hsq.cpp CCPPT/hsq.cpp
+*** CCPP0/hsq.cpp	2013-04-17 22:37:42.927653731 +0800
+--- CCPPT/hsq.cpp	2013-04-17 22:59:07.631600180 +0800
+*************** static int xsj_hw(void)
+*** 38,44 ****
+  	cout << "I am HU Q S\n";
+  	h_Arith4 *my = new h_Arith4("胡全胜");
+  	Commit_hw(my);
+! 	delete my;
+  	return 0;
+  }
+  
+--- 38,44 ----
+  	cout << "I am HU Q S\n";
+  	h_Arith4 *my = new h_Arith4("胡全胜");
+  	Commit_hw(my);
+! 	//delete my;
+  	return 0;
+  }
+  
+diff -crpN CCPP0/main.cpp CCPPT/main.cpp
+*** CCPP0/main.cpp	2013-04-17 22:37:40.911653816 +0800
+--- CCPPT/main.cpp	2013-04-17 23:32:16.631517270 +0800
+*************** extern long __stop___hwkmains[];
+*** 12,19 ****
+  
+  #define SECTION_SIZE(sect) ((size_t)((__stop_##sect - __start_##sect)))
+  
+! static Arith4 hw_ofall[100];
+  static unsigned cnt = 0 ;
+  static int save_hw(Arith4* itt)
+  {
+  	//cout << "save this ONE" << endl;
+--- 12,23 ----
+  
+  #define SECTION_SIZE(sect) ((size_t)((__stop_##sect - __start_##sect)))
+  
+! static Arith4* hw_ofall[100];
+  static unsigned cnt = 0 ;
++ const char dui[] = "√";
++ const char cuo[] = "╳";
++ 
++ 
+  static int save_hw(Arith4* itt)
+  {
+  	//cout << "save this ONE" << endl;
+*************** static int save_hw(Arith4* itt)
+*** 22,28 ****
+  		return -1;
+  	}
+  
+! 	hw_ofall[cnt++] = *itt;
+  	return 0;
+  };
+  
+--- 26,32 ----
+  		return -1;
+  	}
+  
+! 	hw_ofall[cnt++] = itt;
+  	return 0;
+  };
+  
+*************** int Commit_hw(Arith4* one4)
+*** 30,42 ****
+  {
+  	cout << one4->getname() << ">Commit home_work!" << endl;
+  	//cout << "ADD:" << one4->hw_add(23, 45) << endl;
+! 	cout << "***CHECK ADD: 23+45=" << (one4->hw_add(23,45)==(23+45)?"OK":"error") << endl;
+  	return save_hw(one4);
+  }
+   
+  int main(void)
+  {
+  	unsigned i;
+  	//cout << (unsigned long)&__start___hwkmains;
+  	xxxx = (HWmain_t *)__start___hwkmains;
+  	//cout << hex << static_cast<const void *>(xxxx) << endl;
+--- 34,47 ----
+  {
+  	cout << one4->getname() << ">Commit home_work!" << endl;
+  	//cout << "ADD:" << one4->hw_add(23, 45) << endl;
+! 	//cout << "***CHECK ADD: 23+45=" << (one4->hw_add(23,45)==(23+45)?"OK":"error") << endl;
+  	return save_hw(one4);
+  }
+   
+  int main(void)
+  {
+  	unsigned i;
++ 	int result;
+  	//cout << (unsigned long)&__start___hwkmains;
+  	xxxx = (HWmain_t *)__start___hwkmains;
+  	//cout << hex << static_cast<const void *>(xxxx) << endl;
+*************** int main(void)
+*** 49,56 ****
+  	cout << "=================================" << endl;
+  	cout << "Now, Teacher Cheching HomeWork..." << endl;
+  	for(i=0;i<cnt;i++) {
+! 		cout << hw_ofall[i].getname() << endl;
+! 		cout << "***CHECK ADD: 23+45=" << hw_ofall[i].hw_add(23,45) << endl;
+  	}
+  
+  	return 0;
+--- 54,68 ----
+  	cout << "=================================" << endl;
+  	cout << "Now, Teacher Cheching HomeWork..." << endl;
+  	for(i=0;i<cnt;i++) {
+! 		cout << hw_ofall[i]->getname() << endl;
+! 		result = hw_ofall[i]->hw_add(23,45);
+! 		cout << "  ***CHECK ADD: 23+45=" << result << (result==(23+45)?dui:cuo) << endl;
+! 		result = hw_ofall[i]->hw_sub(87,34);
+! 		cout << "  ***CHECK SUB: 87-34=" << result << (result==(87-34)?dui:cuo) << endl;
+! 		result = hw_ofall[i]->hw_mul(12,73);
+! 		cout << "  ***CHECK MUL: 12*73=" << result << (result==(12*73)?dui:cuo) << endl;
+! 		result = hw_ofall[i]->hw_div(72,8);
+! 		cout << "  ***CHECK DIV: 72/8=" << result << (result==(72/8)?dui:cuo) << endl;
+  	}
+  
+  	return 0;
+diff -crpN CCPP0/xusj.cpp CCPPT/xusj.cpp
+*** CCPP0/xusj.cpp	2013-04-17 22:37:38.531653915 +0800
+--- CCPPT/xusj.cpp	2013-04-17 22:58:23.827602005 +0800
+*************** static int xsj_hw(void)
+*** 41,47 ****
+  
+  	x_Arith4 *my = new x_Arith4("许少军");
+  	Commit_hw(my);
+! 	delete my;
+  
+  	return 0;
+  }
+--- 41,47 ----
+  
+  	x_Arith4 *my = new x_Arith4("许少军");
+  	Commit_hw(my);
+! 	//delete my;
+  
+  	return 0;
+  }
