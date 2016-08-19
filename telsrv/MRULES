@@ -1,0 +1,9 @@
+# Standard compilation rules (don't use make builtins)
+
+%.o: %.c
+	@echo "\t\tCC->$<"
+	@$(CC) $(CFLAGS) $< -c
+
+%.o: %.cc
+	$(CXX) $(CXXFLAGS) $< -c
+
