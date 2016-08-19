@@ -28,9 +28,9 @@ static int binder_init(void)
 	int ret;
 	yyprint myp;
 
-	printk("I am yyko, printk at:%p\n", printk);		//c1561f96
+	//printk("I am yyko, printk at:%p\n", printk);		//c1561f96
 	//printk("%x\n", *((unsigned int *)0xc179718c));	//__ksymtab_printk);
-	myp = (yyprint)0xc1561f96;
+	myp = (yyprint)0xffffffff81644453;
 	myp("A=%d\n", 123);
 	ret =0;
 	return ret;

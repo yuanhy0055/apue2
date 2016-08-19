@@ -33,10 +33,11 @@
 #include <linux/vmalloc.h>
 #include "binder.h"
 
+//ffffffff8107cc20 T __lock_task_sighand
 struct sighand_struct *__lock_task_sighand(struct task_struct *tsk, unsigned long *flags)
 {
  struct sighand_struct *(*YYLOCK)(struct task_struct *, unsigned long *);
- YYLOCK = (struct sighand_struct *(*)(struct task_struct *, unsigned long *))0xc105d6f0;
+ YYLOCK = (struct sighand_struct *(*)(struct task_struct *, unsigned long *))0xffffffff8107cc20;
 
  return YYLOCK(tsk, flags);
 }
