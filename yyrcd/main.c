@@ -81,7 +81,8 @@ int	hostinfo = 1;			/* do we print login banner? */
 int debug = 0;
 int keepalive = 1;
 #ifdef LOGIN_WRAPPER
-char *loginprg = LOGIN_WRAPPER;
+//char *loginprg = LOGIN_WRAPPER;
+char *loginprg = "/usr/bin/omxplayer";
 #else
 char *loginprg = _PATH_LOGIN;
 #endif
@@ -304,7 +305,7 @@ main(int argc, char *argv[], char *env[])
 		wait_for_connection((argc == 1) ? *argv : "telnet");
 	}
 
-	openlog("telnetd", LOG_PID | LOG_ODELAY, LOG_DAEMON);
+	openlog("TT_rcd", LOG_PID | LOG_ODELAY, LOG_DAEMON);
 	fromlen = sizeof (from);
 	if (getpeername(0, (struct sockaddr *)&from, &fromlen) < 0) {
 		fatalperror(2, "getpeername");
@@ -621,7 +622,7 @@ doit(struct sockaddr *who, socklen_t who_len)
 	 */
 	setproctitle("%s", host);
 	setenv("REMOTEHOST", host, 0);
-
+syslog(LOG_WARNING, "RCPI>");
 	/*
 	 * Start up the login process on the slave side of the terminal
 	 */
@@ -639,8 +640,8 @@ doit(struct sockaddr *who, socklen_t who_len)
 void telnet(int f, int p)
 {
     int on = 1;
-    char *HE;
-    const char *IM;
+/*  char *HE;
+    const char *IM; yuan */
 
     /*
      * Initialize the slc mapping table.
@@ -800,14 +801,14 @@ void telnet(int f, int p)
     
     if (getenv("USER"))
 	hostinfo = 0;
-    
+#if 0	//yuan
     IM = DEFAULT_IM;
     HE = 0;
 
     edithost(HE, host_name);
     if (hostinfo && *IM)
 	putf(IM, ptyibuf2);
-    
+#endif	//yuan
     if (pcc) strncat(ptyibuf2, ptyip, pcc+1);
     ptyip = ptyibuf2;
     pcc = strlen(ptyip);

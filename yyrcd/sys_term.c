@@ -42,7 +42,7 @@ char st_rcsid[] =
 #include "telnetd.h"
 #include "pathnames.h"
 
-#if defined(__GLIBC__) && (__GLIBC__ >= 2)
+#if 1	//yuan defined(__GLIBC__) && (__GLIBC__ >= 2)
 /* mmm, nonstandard */
 #include <pty.h>
 #else
@@ -525,7 +525,7 @@ void start_login(const char *host, int autologin, const char *name) {
     struct argv_stuff avs;
     char *const *argvfoo;
     (void)autologin;
-
+	char *const *pp;
     initarg(&avs);
 
     /*
@@ -537,12 +537,12 @@ void start_login(const char *host, int autologin, const char *name) {
      * -f : force this login, he has already been authenticated
      */
     addarg(&avs, loginprg);
-    addarg(&avs, "-h");
-    addarg(&avs, host);
-#if !defined(NO_LOGIN_P)
-    addarg(&avs, "-p");
-#endif
-#ifdef BFTPDAEMON
+    addarg(&avs, "/home/pi/sav_d/nan_cao.mp4");		//"-h");
+///    addarg(&avs, host);
+///#if !defined(NO_LOGIN_P)
+///    addarg(&avs, "-p");
+///#endif
+#if 0	//yuan def BFTPDAEMON
     /*
      * Are we working as the bftp daemon?  If so, then ask login
      * to start bftp instead of shell.
@@ -576,13 +576,19 @@ void start_login(const char *host, int autologin, const char *name) {
 	    }
 	}
     }
+syslog(LOG_WARNING, "MS->execv");
     closelog();
     /* execv() should really take char const* const *, but it can't */ 
     /*argvfoo = argv*/;
     memcpy(&argvfoo, &avs.argv, sizeof(argvfoo));
+pp=argvfoo;
+for(;*pp;) {
+	syslog(LOG_WARNING, "do execv, args:{%s}", *pp);
+	pp++;
+}
     execv(loginprg, argvfoo);
 
-    openlog("telnetd", LOG_PID | LOG_ODELAY, LOG_DAEMON);
+    openlog("Boydo", LOG_PID | LOG_ODELAY, LOG_DAEMON);
     syslog(LOG_ERR, "%s: %m\n", loginprg);
     closelog();
     fatalperror(net, loginprg);

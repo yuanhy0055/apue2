@@ -1,0 +1,5 @@
+while [ 1 ];do
+ sudo ./yyrcd -debug 23333
+ echo "this once down."
+ sleep 1
+done

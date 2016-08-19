@@ -353,7 +353,7 @@ fatalperror(int f, const char *msg)
 char *editedhost;
 struct utsname kerninfo;
 
-void
+#if 0 //yuan void
 edithost(const char *pat, const char *host)
 {
 	char *res;
@@ -523,6 +523,7 @@ void putf(const char *cp, char *where)
 		cp++;
 	}
 }
+#endif		//yuan
 
 #ifdef DIAGNOSTICS
 /*
