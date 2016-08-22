@@ -1,0 +1,110 @@
+v3.5.0:
+
+- many changes to support newer 2.6 kernels.  now 2.6.17 is tested
+- at the moment flash.o / flash.ko must be loaded first. 	
+- please use for the moment version 3.4.0 for kernel before 2.4
+
+v3.3.0:
+
+- fix toggle_bit_algorythm and data_polling_algorithm
+- add callerarray generation script (for easy adding new chiptypes)  
+- extend write timeouts
+- rename GET and PUT to chip_get_byte chip_put_byte
+- make chip_get_byte and chip_put_byte flashchip depended.
+- add basics to detect chips with "diasablepins" without jumpersetting
+- add sst39a.c to detect W49F002U without setting jumpers 
+- add i28a to detect 28F001BX-T and 28F001BX-B without jumpers(readonly) 
+- add via-rhine support
+- add realtek support
+- add mainboards with sis chipset support
+- show a warning message if the flashchip is bigger than the hardware allows
+- change makefiles to support gcc 3.3
+
+
+v3.2.0:
+
+- support for multiple network cards (same type)
+- new flashtype added
+- detection of flash changed (some types need it)
+- error handling fixed
+hot plug and pray should not work! at removing one card,
+the whole driver will be removed. i can't test it, i don't
+have such hardware.
+
+v3.1.1:
+
+- mistake inside erase routine of cat28 fixed
+
+v3.1:
+
+- check for locked flashproms (if supported)
+- additional types of flashproms
+- support for 3com 3c905
+
+v3.0:
+
+- no dependency while loading modules
+- additional types of flashproms
+
+v2.2:
+
+- better interface for lowlevel driver
+- support for c't-flasher, ide-flasher, intel e100
+
+v2.1:
+
+- cleanup
+- moving src to v3.x
+
+v2.0:
+
+- procfs instead of dev
+
+v1.4:
+
+- better identification of flash
+- support for ... (who will send to me the flash?)
+
+v1.3:
+
+- kernel 2.4 supported
+- functions PUT() and GET() separated and totally written in assembler
+- support for AMD AM28Fxxx
+( what's the difference between AM28F256 and AM28F256A? i have both and
+  the datasheets from AMD shows two totally different algorithms. but only
+  the shorter (for AM28FxxxA) works. for both! )
+
+v1.2:
+
+- support for ATMEL AT29xx
+- data of flash as array
+- cleaning of source
+
+v1.1:
+
+- autoconfiguration of io
+- assembler code modified (only usable up to PPro)
+- prepare for ATMEL flash support
+
+v1.0:
+
+- remove io control
+- identification of flash
+- 3 devices:
+/dev/flash		for reading & writing of flash
+/dev/flash_info		informations about flash and isa card
+/dev/flash_erase	erase flash
+- io mapping now in C or assembler code availible
+
+v0.x
+
+- kernel module and external program at the user space
+
+
+
+
+
+
+
+:
+

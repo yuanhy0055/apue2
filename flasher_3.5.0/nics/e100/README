@@ -1,0 +1,6 @@
+this is a pre-alpha source. it works on me, but i don't no why?
+i have tested some things, because in datasheet of intel some
+details are missing. be careful!!!
+
+restrictions:
+- hot plug pci should not work

@@ -1,0 +1,68 @@
+Q: which hardware is supported?
+A: look at http://ctflasher.sourceforge.net
+
+Q: which types of flashproms are supported?
+A: do a "cat /proc/flashprom/supported_types"
+
+Q: i can't load the module. i get a message like:
+   "ct.o: init_module: Input/output error"
+A: look into the syslog messages. you will find out the reason:
+   "May 16 23:40:03 lap-dpf kernel: ctflash: c't flasher not found!"
+   for using this program you need a special hardware. look at:
+   http://www.heise.de/ct/ftp/projekte/flasher/default.shtml
+
+Q: i have installed the hardware and the hardware has been detected. but at 
+   "cat /proc/ctflasher/info" i always get "manufacturer: unknown".
+   what's wrong?
+A: there are several things. first, i don't support all manufacturers. why? 
+   i don't have all flashtypes. if i get a new one, i will test it immediately.
+   another problem can depend on the configuration of your bios. in some bios
+   you can disable/select the io of the isa slots. enable the right io.
+   be careful of other hardware. i got problems with a on board scsi controler.
+   at flashproms with a 28 inside the number (intel p28f001) you must enable 12volt.
+
+Q: i have used the program and now my computer is damaged, my harddisk is
+   erased, i'm out of work, my wife is having a baby, ....
+   where can i send the bill?
+A: /dev/null
+ 
+Q: why verify isn't supported?
+A: a verify is included and runs automatically at any operation.
+   to doublecheck you can use "cmp /proc/ctflasher/data datafile"
+
+Q: how can i check flashchip is propper read?
+A: use cmp,strings or hexdump to check the datafile.
+
+Q: i have inserted a 128KB flash in my NIC (network interface card), but somethings
+   is wrong...
+A: read the output from .../info
+
+   work: # cat /proc/via-rhine-flash/device_0/info
+   hardware:     via-rhine
+   manufacturer:   WINBOND
+   flashtype:      W29C010M   1 Mbit (128K x 8-bit) (sure)
+   protected:      unknown
+   romsize reduced to 64 kbytes because of hardware restrictions
+   work: #
+
+   your NIC only supports flashproms up to 64KB.
+
+Q: if i write data to a flash, should i erase the flash first
+   ("cat /proc/ctflasher/erase")?
+A: no. if you copy the data to the flash ("cat image >/proc/ctflasher/data"),
+   the program will first check the flash. if the flash is not erased, the
+   program will do it before writing the data into the flash.
+
+Q: can i damage my computer hardware, if i send a file to the device, which
+   is bigger than the flash?
+A: test it! the program will only write the amount of data to the flash,
+   which is configured in flash_data.h. if you send more to the device, the
+   program will cut the rest and you will get an error message like
+
+   work:/ # cat /dev/urandom >/proc/ctflasher/data
+   cat: write error: No space left on device
+   work:/ #
+
+Q: where is the gui?
+A: this program is simple, fast, good. for using it you don't need any additional
+   program. people, who really needs this flasher, don't ask for a gui.

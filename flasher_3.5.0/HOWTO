@@ -1,0 +1,73 @@
+first do a "make all". all modules will be placed in modules/ .
+do a "cd modules". there should be 8 files
+
+For kernel 2.4 this files are
+
+flash.o            -- the main module, containing algorithms for programming flashprom
+ct.o               -- lowlevel driver for c't-flasher
+ide_flash.o        -- lowlevel driver for ide-flasher
+e100_flash.o       -- lowlevel driver for intel nic e100
+3c90xc_flash.o     -- lowlevel driver for intel nic 3c905c
+rtl8139_flash.o    -- lowlevel driver for realtek nic 8139
+sis630_flash.o     -- lowlevel driver for northsouthbridge sis630 (bios)
+via-rhine_flash.o  -- lowlevel driver for via rhine nic
+
+while for kernel 2.6 this files are
+
+flash.ko            -- the main module, containing algorithms for programming flashprom
+ct.ko               -- lowlevel driver for c't-flasher
+ide_flash.ko        -- lowlevel driver for ide-flasher
+e100_flash.ko       -- lowlevel driver for intel nic e100
+3c90xc_flash.ko     -- lowlevel driver for intel nic 3c905c
+rtl8139_flash.ko    -- lowlevel driver for realtek nic 8139
+sis630_flash.ko     -- lowlevel driver for northsouthbridge sis630 (bios)
+via-rhine_flash.ko  -- lowlevel driver for via rhine nic
+
+
+you must load the main module "flash.o", and the lowlevel driver (for example ct.o)
+it's no matter, what order the modules are loaded.
+
+for kernel 2.2 and 2.4
+"insmod flash.o"
+"insmod ct.o"
+
+for kernel 2.6
+"insmod flash.ko" 
+"insmod ct.ko"
+
+Depending on the loaded modules you have 3 files.
+/proc/.../info
+/proc/.../data
+/proc/.../erase
+
+the "..." stand for the hardwaredependent part of the path:
+ct.o			ctflasher
+ide_flash.o		ide-flasher/PLCC32 and ide-flasher/DIL32
+e100_flash.o		e100-flash/device?
+3c90xc_flash.o		3c90xc-flash/device?
+rtl8139_flash.o		rtl8139-flash/device?
+sis630_flash.o		sis630-flash
+via-rhine_flash.o	via-rhine-flash/device?
+
+so the info file for the ide-flasher's PLCC socket ist /proc/ide-flasher/PLCC32/info
+
+for informations about the hardware and the inserted flash do
+
+"cat /proc/.../info"
+
+for erasing the flash do 
+
+"cat /proc/.../erase"
+
+for reading the content of flash do
+
+"cat /proc/.../data >my_file"
+
+for programming (and erasing) the flash do
+
+"cat my_image >/proc/.../data"
+
+verify is done automatically.
+
+if you forget the main module "flash.o", you ever get a
+"cat: /proc/.../data: Device or resource busy"

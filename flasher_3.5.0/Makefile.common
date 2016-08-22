@@ -1,0 +1,27 @@
+CC = gcc
+LD = ld
+AS = as
+CFLAGS =
+ASFLAGS =
+
+#gcc aufrufen und nach "w3.*" suchen wobei * fuer 0-9 und
+#w für Wortbeginn steht.
+
+GCC_V3 = $(shell $(CC) --version|grep --count ' 3\.[0-9]')
+
+ifeq ($(GCC_V3),1)
+
+MFLAGS = -D__KERNEL__ -I/usr/src/linux/include -Wall -Wstrict-prototypes \
+-O2 -fomit-frame-pointer -fno-strict-aliasing -pipe -fno-strength-reduce \
+-mcpu=i686 -falign-loops=2 -falign-jumps=2 -falign-functions=2 -DCPU=686 \
+-DMODULE -DMODVERSIONS -include /usr/src/linux/include/linux/modversions.h
+
+else 
+
+MFLAGS = -D__KERNEL__ -I/usr/src/linux/include -Wall -Wstrict-prototypes \
+-O2 -fomit-frame-pointer -fno-strict-aliasing -pipe -fno-strength-reduce \
+-mcpu=i686 -malign-loops=2 -malign-jumps=2 -malign-functions=2 -DCPU=686 \
+-DMODULE -DMODVERSIONS -include /usr/src/linux/include/linux/modversions.h
+
+endif
+
