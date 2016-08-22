@@ -1,0 +1,71 @@
+This is the HOW-TO file for bremote v.0.1. It is a SonyEricsson T610
+Bluetooth remote control application for Xine, (c) by Niko Mauno 2004.
+
+
+STARTING XINE WITH BREMOTE:
+===========================
+
+Below is a description of how to use the bremote application:
+
+First of all, the Bluez Bluetooth subsystem should be running, if not, 
+init it e.g. by starting the BlueZ hci daemon:
+
+	hcid
+
+
+Second, use Bluetooth inquiry to discover the bluetooth device address 
+(bdaddr) of your SonyEricsson phone:
+
+	hcitool scan --flush
+
+
+Then use the btxine script to launch xine with bremote:
+
+	btxine (file) (bdaddr)
+
+(file) = full path to your movie or audio file, e.g. /mnt/cdrom/test.avi
+(bdaddr) = Bluetooth device address, e.g. 11:22:33:44:55:66
+
+
+On the first Bluetooth connection establishment between your Linux and 
+SonyEricsson phone, You will be prompted for PIN code. Use e.g. the 
+default 1234 for both ends, and 'accept' connection from Linux on your 
+SonyEricsson phone.
+
+
+USING THE REMOTE CONTROL PHONE:
+===============================
+
+Below is a description of key bindings on the SonyEricsson phone:
+
+Left menu button:	Close CD tray
+Right menu button:	Open CD tray
+Back (arrow) button:	Quit
+Clear (C) button:	Pause/Unpause
+Joystick up:		Increase audio volume 
+Joystick down:		Decrease audio volume
+Joystick right:         Increase replay speed to double
+                        (up to a maximum of 400% of normal)
+Joystick left:		Decrease replay speed to half
+			(down to a minimum of 25% of normal)
+Joystick press:		Mute/Unmute audio
+Camera button:		Toggle fullscreen mode
+Volume up button:	Stop replay
+Volume down button:	Start replay
+Internet button:	Toggle xineramafull mode
+Star(*) or Sharp(#):	Shift button 
+
+Numberpad keys:		Shift unpressed:	Shift pressed:
+	0		No meaning		Jump to beginning 
+	1		Back 15 seconds		Jump to 10% 
+	2		No meaning		Jump to 20%
+	3		Forward 15 seconds	Jump to 30%
+	4		Back 30 seconds		Jump to 40%
+	5		No meaning		Jump to 50%
+	6		Forward 30 seconds	Jump to 60%
+	7		Back 60 seconds		Jump to 70%
+	8		No meaning		Jump to 80%
+	9		Forward 60 seconds	Jump to 90%
+
+
+

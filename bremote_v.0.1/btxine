@@ -1,0 +1,17 @@
+if [ -z $( ps -A | grep hcid ) ]
+then
+	echo "hcid inactive, initing..."
+	hcid
+	sleep 1
+else
+	echo "hcid running ok"
+fi
+
+if [ "$1" = "" ] || [ "$2" = "" ]
+then
+	echo "Usage: $0 filename Bluetooth_address" 
+else
+	xine -n "$1" &
+	sleep 2
+	bremote "$2"
+fi

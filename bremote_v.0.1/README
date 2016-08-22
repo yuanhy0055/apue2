@@ -1,0 +1,72 @@
+This is the README file for bremote v.0.1. It is a SonyEricsson T610 
+Bluetooth remote control application for Xine, (c) by Niko Mauno 2004. 
+
+
+Requirements:
+=============
+
+1) bluez
+
+The Official Linux Bluetooth protocal stack, Bluez, is required by the 
+Bluetooth remote control application. Bluez can be acquired from 
+http://www.bluez.org/. You should probably install at least bluez-libs 
+and bluez-utils.
+
+A USB Bluetooth dongle was used on author's system. For USB Bluetooth 
+dongles, a character special file must be created, if it's not already 
+there. E.g:
+
+	mknod /dev/ttyUB0 c 216 0
+
+2) xine
+
+Xine is a free (gpl-licensed) high-performance, portable and reusable 
+multimedia playback engine. bremote application requires xine-lib (Xine 
+core engine) and xine-ui (Xine frontend). They both can be acquired from 
+http://xinehq.de/.
+
+A passwd file that is in this folder must be placed in the 
+.xine-directory. E.g:
+
+	cp ./passwd /root/.xine
+
+Where the destination path may naturally vary depending where xine-ui is 
+installed on your system. The user:password combination is by default 
+set to "root:root". The user:password combination can be changed less 
+predictable by changing them in both the passwd-file and in the 
+bremote.c file [line which says: strcpy(inet_buf_out, "identify 
+root:root\n");]
+
+3) aumix and eject
+
+The bremote application uses also aumix and eject applications. It 
+would be good to have at least the aumix application on your system, in 
+order for the volume control to work.
+
+
+Version information:
+====================
+
+The bremote application was tested and run on Linux Fedora Core 2 
+kernel version 2.6.8-1.521 (The application should run on any 2.6 
+kernel and probably on [most] 2.4 kernels). 
+
+The software versions used were xine-lib-1-rc6a, xine-ui-0.99.2, 
+bluez-libs-2.10, bluez-utils-2.10, aumix version 2.8, eject 
+version 2.0.13.
+
+
+Compile & Install:
+==================
+
+To compile the code, type:
+
+	make
+
+
+To install the application, type:
+
+	make install
+
+
+After installing, read the HOW-TO file more usage instructions!
