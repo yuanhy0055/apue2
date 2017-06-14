@@ -1,0 +1,28 @@
+#!/bin/bash
+
+export LANG=en_US
+URL0="https://www.sslproxies.org/"
+PXY0="___t/sslorg.txt"
+PXY1="___t/sslfmt.txt"
+ONE1="___t/only_1"
+
+if [ -s ${PXY1} ] ;then
+	echo "Get first line !"
+	cat ${PXY1} | head -1 >${ONE1}
+	echo "Del first line !"
+	sed -i '1d' ${PXY1}
+else
+	curl -s ${URL0}|sed -n '/<tbody>/,/<\/tbody>/p'|sed -e '1s/.*<tbody>//' -e '$s/<\/tbody>.*//' >${PXY0}
+	echo "Get a Orig File, and format for me..."
+	cat ${PXY0} | sed -e 's/<\/tr>/<\/tr>\n/g' >${PXY1}
+	exit 0
+fi
+
+DLX="`cat ${ONE1} | sed -e '1s/.*<tr>//' -e 's/<td>//g' -e 's/<\/td>/ /g' -e '$s/<\/tr>.*//'|awk '{ print $1 ":" $2}'`"
+#cat ${ONE1} >>tmp/save_item
+
+#export https_proxy="${DLX}"
+#export http_proxy="${DLX}"
+#export ftp_proxy="${DLX}"
+
+echo -e "\t\t->Using [$DLX] as xxx_proxy"

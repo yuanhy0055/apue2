@@ -1,0 +1,31 @@
+#!/bin/bash
+
+PXY0="ssldl_org.txt"
+
+if [ -s ${PXY0} ] ;then
+	echo "Get first line to one_proxy!"
+	cat ${PXY0} | head -1 >only_one
+	echo "Del first line !"
+	sed -i '1d' ${PXY0}
+	cat only_one >> save_item
+else
+	curl -s http://www.sslproxies.org/ |sed -n '/<tbody>/,/<\/tbody>/p' |sed -e '1s/.*<tbody>//' -e '$s/<\/tbody>.*//' >${PXY0}
+	echo "Get a Orig File"
+	exit 0
+fi
+
+DLX="`cat only_one | sed -e '1s/.*<tr>//' -e 's/<td>//g' -e 's/<\/td>/ /g' -e '$s/<\/tr>.*//'|awk '{ print $1 ":" $2}'`"
+rm only_one
+
+export https_proxy="${DLX}"
+export http_proxy="${DLX}"
+export ftp_proxy="${DLX}"
+git config --global --remove http
+git config --global --remove https
+git config --global http.proxy https://${DLX}
+git config --global https.proxy https://${DLX}
+
+echo "	-> Using $DLX"
+
+#curl https://google.com/dl/chrome/win/98E60FD8733C86C4/45.0.2454.101_chrome64_installer.exe -o chrome64.exe
+#curl https://security.appspot.com/downloads/vsftpd-3.0.3.tar.gz -o vsftpd-3.0.3.tar.gz

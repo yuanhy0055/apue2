@@ -1,0 +1,16 @@
+#!/bin/bash
+
+PXY0="org0.txt"
+URL0="http://www.sslproxies.org/"
+
+[ -s ${PXY0} ] || curl -s ${URL0} >${PXY0}
+
+if [ -s ${PXY0} ] ;then
+	cat ${PXY0}|sed -n '/<tbody>/,/<\/tbody>/p'|sed -e 's/.*<tbody>//' -e 's/<\/tbody>.*//'|sed -e 's/.*<tr>//' -e 's/<td>//g' -e 's/<\/td>/ /g' -e 's/<\/tr>.*//'>org3.txt
+	sed -i '/^ *$/d' org3.txt
+	cat org3.txt|awk '{ print $1 ":" $2}' >org4.txt
+	rm org3.txt
+else
+	echo "No Orig File"
+	exit 0
+fi

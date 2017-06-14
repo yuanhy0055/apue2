@@ -1,0 +1,19 @@
+#!/bin/bash
+
+PXY0="_now/ssldl_org.txt"
+URL0="http://www.sslproxies.org/"
+
+[ -s ${PXY0} ]||curl -s ${URL0} |sed -n '/<tbody>/,/<\/tbody>/p' |sed -e '1s/.*<tbody>//' -e '$s/<\/tbody>.*//' >${PXY0}
+if [ -s ${PXY0} ] ;then
+	cat ${PXY0} | head -1 >only_one
+	sed -i '1d' ${PXY0}
+	cat only_one >> _now/_itembox
+else
+	echo "Orig File Error"
+	exit 0
+fi
+
+DLX="`cat only_one | sed -e '1s/.*<tr>//' -e 's/<td>//g' -e 's/<\/td>/ /g' -e '$s/<\/tr>.*//'|awk '{ print $1 ":" $2}'`"
+rm only_one
+
+echo "        -> Using $DLX"

@@ -1,0 +1,5 @@
+#!/bin/bash
+
+. env_DL
+
+curl -O http://ftp.cs.stanford.edu/pub/exim/pcre/pcre-8.36.tar.bz2
