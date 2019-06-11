@@ -3,19 +3,20 @@ LOCAL_PATH := $(call my-dir)
 include $(CLEAR_VARS)
 
 LOCAL_SRC_FILES := \
+  core.c  \
+  flagset.c  \
+  misc.c  \
+  netcat.c  \
+  network.c  \
+  telnet.c  \
+  udphelper.c \
   lpt.c \
   main.c
 
 LOCAL_MODULE := ads_rom
 LOCAL_MODULE_TAGS := optional
 #LOCAL_STATIC_LIBRARIES := libc
-#OCAL_STATIC_LIBRARIES += libkallsyms
+LOCAL_CFLAGS += -DLOCALEDIR="/data/local/tmp/locale" -DHAVE_CONFIG_H
 LOCAL_LDFLAGS += -static
 
-TOP_SRCDIR := $(abspath $(LOCAL_PATH))
-TARGET_C_INCLUDES += \
-  $(TOP_SRCDIR)/device_database
-
 include $(BUILD_EXECUTABLE)
-
-include $(call all-makefiles-under,$(LOCAL_PATH))

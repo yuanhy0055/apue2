@@ -1,7 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <unistd.h>
-//#include <asm/io.h>
+//#include "io.h"
 //#include <sys/io.h>
 
 #define base 0x378   //LPT0
@@ -10,7 +10,7 @@
 //after compiling, set suid:  chmod +s parport   then, copy to /usr/sbin/
 
 
-int main(void) {
+int zt_main(void) {
 #if 0
   if(ioperm(base,1,1)) 
     fprintf(stderr, "Couldn't open parallel port"), exit(1);
